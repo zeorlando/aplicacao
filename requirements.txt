@@ -1,0 +1,4 @@
+selenium
+pyautogui
+streamlit
+PyPDF2
