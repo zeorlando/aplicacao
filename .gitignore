@@ -1,5 +1,5 @@
 .venv
-pages
+pages/
 access.csv
 dicionario.xlsx
 aplicacao.code-workspace
