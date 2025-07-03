@@ -7,11 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
 
+
 import pandas as pd
 import streamlit as st
 import os
 
 import time
+
 
 empresas = st.selectbox('Escolha a empresa',
     ('INFANTIL', 'ETAPA 1', 'ETAPA 2'))
@@ -24,10 +26,8 @@ titulo_msg = st.text_input('Informe o título da Msg do ClassApp')
 mensagem = st.text_area('Coloque aqui a sua mensagem')
 mensagem = mensagem.splitlines()
 
-# arquivo contendo caminho base onde encontrar os holerites e endereço urlIdUsuario ClassApp
-access = pd.read_csv('access.csv', sep=';')
 
-caminho = access.columns[0] + meses + '_' + empresas + '\\'
+caminho = '\\\srv-xingu\\RH\\HOLERITES\\' + meses + '_' + empresas + '\\'
 arquivos = ''
 
 try:
@@ -47,19 +47,23 @@ else:
     selecionados = []
 selecao = st.multiselect('Escolha o funcionário', arquivos, default=selecionados)
 
-
 enviar = st.button('Enviar')
 
 #dicionário contendo a relação entre nome do arquivo PDF e o usuário do ClassApp
 d = pd.read_excel('.\dicionario.xlsx', sheet_name = 'holerite',index_col=0,header=None).transpose().to_dict('records')[0]
 
+###
+
 if enviar:
+    #browser = webdriver.Firefox()
     servico = Service(GeckoDriverManager().install())
     browser = webdriver.Firefox(service=servico)
-    endereco = access.columns[1]
+    endereco = 'https://classapp.com.br/entities/1234725272/'
     browser.get(endereco)
+    #browser.implicitly_wait(10)
 
-    wait = WebDriverWait(browser, 20)
+    #tentar implementar 
+    wait = WebDriverWait(browser, 10)
 
     
     celular = wait.until(
@@ -89,7 +93,7 @@ if enviar:
     entrar.click()
 
 
-    if not wait.until(EC.url_to_be(access.columns[1])):
+    if not wait.until(EC.url_to_be('https://classapp.com.br/entities/1234725272/')):
 
         celular = wait.until(
             EC.element_to_be_clickable(
@@ -118,8 +122,7 @@ if enviar:
         entrar.click()
 
     else:
-    # no adm do ClassApp sempre costuma aparecer um POPUP, o trecho abaixo deve ser descomentado
-    # caso o envio seja feito com o usuário admin
+        
     #    fechar_popup = wait.until(
     #        EC.element_to_be_clickable(
     #            (By.CSS_SELECTOR, 'svg[data-testid*="close"]')

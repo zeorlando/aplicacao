@@ -1,13 +1,10 @@
 import streamlit as st
-import pandas as pd
 import PyPDF2
 import os
 
-from PyPDF2 import PdfFileWriter
+from PyPDF2 import PdfReader, PdfFileWriter
 
-# arquivo contendo caminho base onde encontrar os holerites e endereço urlIdUsuario ClassApp
-access = pd.read_csv('access.csv', sep=';')
-destino = access.columns[0]
+destino = "\\\srv-xingu\\RH\\HOLERITES\\"
 
 empresas = st.selectbox('Escolha a empresa',
     ('INFANTIL', 'ETAPA 1', 'ETAPA 2'))
@@ -19,8 +16,9 @@ filepdf = st.file_uploader('Escolha o arquivo', type='pdf')
 
 destino_holerites = destino + meses + "_" + empresas
 
+
 if filepdf:
-    pdf_reader = PyPDF2.PdfFileReader(filepdf)
+    pdf_reader = PyPDF2.PdfReader(filepdf)
     os.mkdir(destino_holerites)
     for page_num in range(pdf_reader.numPages):
         pdfWriter = PdfFileWriter()
