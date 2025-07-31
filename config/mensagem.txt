@@ -1,0 +1,5 @@
+$expressao,
+Espero que esta mensagem o encontre bem.
+Segue anexo o holerite referente ao mês de <b>$mes</b>. Por favor, verifique todas as informações detalhadamente para garantir que tudo esteja correto.
+Atenciosamente,
+Josi - RH
