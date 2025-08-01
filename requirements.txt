@@ -1,4 +1,3 @@
-selenium
-pyautogui
 streamlit
+pandas
 PyPDF2

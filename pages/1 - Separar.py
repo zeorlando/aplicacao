@@ -4,7 +4,6 @@ import os
 
 from PyPDF2 import PdfReader, PdfFileWriter
 
-# destino = "\\\srv-xingu\\RH\\HOLERITES\\"
 caminho_srv = os.path.join('config','path.txt')
 
 with open (caminho_srv) as file:
